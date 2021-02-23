@@ -2,11 +2,18 @@ import { bookService } from '../services/book.service.js'
 import bookFilter from '../cmps/book-filter.cmp.js'
 import bookList from '../cmps/book-list.cmp.js'
 import bookDetails from './book-details.cmp.js'
+import bookAdd from '../cmps/book-add.cmp.js'
+import bookSearch from '../cmps/book-search.cmp.js'
+import { googleService } from '../services/google.service.js'
 
 export default {
     template: `
     <div>
     <book-filter  @filtered="setFilter"></book-filter>
+    <section>
+        <book-add @searchBook="searchBook"></book-add>
+        <book-search @addSearchedBook="addBook" v-if="newBooks.length" :books="newBooks"></book-search>
+    </section>
     <book-list  :books="booksToShow" @selected="selectBook"></book-list> 
 </div>
     `,
@@ -14,10 +21,29 @@ export default {
         return {
             books: '',
             filterBy: null,
-            selectedBook: null
+            selectedBook: null,
+            newBooks: []
         }
     },
     methods: {
+        addBook(book) {
+            this.newBooks = []
+            bookService.addBook(book)
+                .then(updatedBooks => this.books = updatedBooks)
+
+        }
+
+        ,
+        searchBook(searchStr) {
+            googleService.find(searchStr)
+                .then(data => {
+                    this.newBooks = data.items
+                    console.log(this.newBooks);
+
+                })
+        }
+
+        ,
         setFilter(filterBy) {
             if (!filterBy) return
             this.filterBy = filterBy
@@ -36,7 +62,9 @@ export default {
         bookService,
         bookFilter,
         bookList,
-        bookDetails
+        bookDetails,
+        bookAdd,
+        bookSearch
     }
     ,
     created() {

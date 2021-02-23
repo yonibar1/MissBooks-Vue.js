@@ -2,8 +2,7 @@ import longText from '../cmps/long-text.cmp.js'
 import reviewAdd from '../cmps/review-add.cmp.js'
 import { bookService } from '../services/book.service.js'
 export default {
-    // props: ['book'],
-    // v-if="!book.reviews.length"
+
     template: `
     <section v-if="book" class="book-details-container">
         <div class="details-content">
@@ -95,5 +94,11 @@ export default {
     components: {
         longText,
         reviewAdd
+    },
+    watch: {
+        '$route.params.id'(id) {
+            console.log(id)
+        }
     }
+
 }

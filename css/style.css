@@ -90,6 +90,17 @@ header{
     background-color:rgb(255, 201, 195);
 }
 
+/* ADD */
+.book-add-container{
+    padding-top: 15px;
+}
+
+.searched-books-list{
+    list-style: none;
+    
+
+}
+
 
 
 

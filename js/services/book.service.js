@@ -2,7 +2,6 @@ import { utilService } from './util-service.js'
 import { storageService } from './async-storage-service.js'
 
 const BOOKS_KEY = 'books'
-
 var gBooks = [
     {
         "id": "OXeMG8wNskc",
@@ -449,7 +448,10 @@ export const bookService = {
     query,
     getBookById,
     saveReview,
-    removeReview
+    removeReview,
+    saveGoogleRes,
+    getDemoData,
+    addBook
 }
 function saveReview(id, review) {
     return getBookById(id)
@@ -468,6 +470,66 @@ function removeReview(bookId, reviewIdx) {
 }
 
 
+// {
+//     "id": "OXeMG8wNskc",
+//     "title": "metus hendrerit",
+//     "subtitle": "mi est eros convallis auctor arcu dapibus himenaeos",
+//     "authors": [
+//         "Barbara Cartland"
+//     ],
+//     "publishedDate": 1999,
+//     "description": "placerat nisi sodales suscipit tellus tincidunt mauris elit sit luctus interdum ad dictum platea vehicula conubia fermentum habitasse congue suspendisse",
+//     "pageCount": 713,
+//     "categories": [
+//         "Computers",
+//         "Hack"
+//     ],
+//     "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
+//     "language": "en",
+//     "listPrice": {
+//         "amount": 109,
+//         "currencyCode": "EUR",
+//         "isOnSale": false
+//     }
+// }
+function addBook(book) {
+    let books = utilService.loadFromStorage(BOOKS_KEY)
+    book = {
+        id: book.id, title: book.volumeInfo.title,
+        subtitle: 'lorem ipsum dolor',
+        authors: book.volumeInfo.authors,
+        publishedDate: book.volumeInfo.publishedDate,
+        description: book.volumeInfo.description,
+        pageCount: book.volumeInfo.pageCount,
+        categories: book.volumeInfo.categories,
+        thumbnail: book.volumeInfo.imageLinks.thumbnail,
+        language: book.volumeInfo.language,
+        listPrice: {
+            amount: 80,
+            currencyCode: 'EUR',
+            isOnSale: true
+        }
+
+    }
+    // if (!book.imageLinks) book['imageLinks']['thumbnail'] = 'img/default-book.png'
+    if (!books.find(currBook => { return currBook.id === book.id })) {
+        console.log('Saving');
+        books.push(book)
+        utilService.saveToStorage(BOOKS_KEY, books)
+    }
+    console.log(books);
+    return Promise.resolve(books)
+
+}
+
+function saveGoogleRes(data, key) {
+    storageService.save(key, data)
+}
+
+function getDemoData(key) {
+    return utilService.loadFromStorage(key)
+}
+
 function getBookById(bookId) {
     return storageService.get(BOOKS_KEY, bookId)
 }
@@ -481,13 +543,7 @@ function query() {
             }
             return books
         })
-    // let books = utilService.loadFromStorage(BOOKS_KEY)
-    // if (!books || !books.length) {
-    //     _setBooksReview()
-    //     books = gBooks
-    //     utilService.saveToStorage(BOOKS_KEY, books)
-    // }
-    // return Promise.resolve(books)
+
 }
 
 function _setBooksReview() {
