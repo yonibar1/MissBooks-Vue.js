@@ -1,0 +1,262 @@
+*{box-sizing: border-box;}
+
+body{
+    margin:0 auto;
+}
+h1,h2,h3,h4,h5,h6,p{
+margin:0;
+}
+.text-muted{
+    color: rgb(82, 82, 82);
+}
+button{
+    cursor: pointer;
+    outline: none;
+    padding: 10px;
+    border-radius: 2em;
+    border: none;
+    transition: background-color .6s;
+}
+button:hover{
+    background-color: lightsalmon;
+}
+
+main{
+padding: 10px 100px;
+background-color: whitesmoke;
+text-align: center;
+font-family: 'Montserrat', sans-serif;
+}
+
+.page-size{
+height: 80vh;
+}
+
+
+/* HEADER */
+header{
+    margin: 10px 0;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* nav */
+.nav-list{
+    list-style: none;
+    display: flex;
+}
+.nav-list>*{
+    text-decoration: none;
+    color: black;
+}
+.nav-list :not(:first-child){
+    margin-inline-start: 10px;
+}
+
+
+/* FILTER */
+.book-filter{
+    background-color:linen;
+    padding:15px;
+}
+.book-list{
+    background-color: snow;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    text-transform: capitalize;
+}
+.book-list li a{
+    text-decoration: none;
+    color:black;
+    
+}
+.book-list li {
+    width: 250px;
+    height: 250px;
+    margin:5px;
+    background-color: mistyrose;
+    transition: .6s;
+    box-shadow: -2px 1px 3px 1px rgb(216, 216, 216) ;
+    background-color: mistyrose;
+
+}
+.book-list li :hover{
+    cursor: pointer;
+    background-color:rgb(255, 201, 195);
+}
+
+
+
+
+
+
+/* PREVIEW */
+.book-preview-container{
+    padding:10px;
+    transition: background-color .3s;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.book-preview-container >*{
+    margin-bottom: 10px;
+}
+
+.book-preview-container img{
+    width: 80px;
+}
+.expensive{
+    color: red;
+}
+.cheap{
+    color: green;
+}
+
+
+/* DETAILS */
+.book-details-container{
+    padding: 30px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    background-color: snow;
+}
+.reviews-container{
+    flex-basis: 50%;
+    border:1px solid rgba(255, 0, 0, 0.349);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 2em;
+    background-color: rgb(255 159 131);
+    box-shadow: 0px 0px 9px 3px rgb(154 86 66);
+}
+.details-content{
+border:1px solid rgba(255, 0, 0, 0.349);
+padding: 20px;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+border-radius: 2em;
+background-color: rgb(255 159 131);
+box-shadow: 0px 0px 9px 3px rgb(154 86 66);
+flex-basis: 50%;
+}
+.review-content{
+    margin-bottom: 10px;
+}
+
+.back{
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    border-radius:2rem ;
+    background-color: #d92727;
+    transition: .3s;
+}
+
+.back:hover{
+    color:#d92727;
+    background-color: rgba(19, 17, 17, 0.836);
+}
+
+.book-description{
+    width: 500px;
+}
+.details-content button:hover{
+    background-color: rgb(250, 182, 36);
+}
+.book-details-container img{
+    width: 200px;
+}
+.book-details-container img.sale{
+    display: inline;
+    width: 50px;
+}
+.price-container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.price-container :first-child{
+    margin-inline-end:10px ;
+}
+
+.details-content>*{
+    margin-bottom: 15px;
+}
+.review-and-image{
+    display: flex;
+}
+.review-and-image img{
+    margin-inline-end:10px ;
+}
+/* RATING */
+.rate-container{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+}
+.rate-container>*{
+    margin-bottom:5px;
+    border-radius: 0.5em;
+    border: none;
+    padding:5px;
+}
+.review-submit{
+    width: 50%;
+    background-color: rgb(60, 255, 0);
+    transition: .6s;
+}
+button.review-submit:hover{
+    background-color:rgb(0, 255, 200) ;
+}
+
+/* FOOTER */
+footer{
+    background-color: linen;
+    padding: 20px 0;
+}
+
+
+
+
+/* ABOUT */
+.about-hero img{
+    width: 100%;
+    height: 70vh;
+}
+
+
+/* USER MSG */
+.user-msg {
+    position: fixed;
+    padding: 20px;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.success{
+    background-color: rgb(30, 207, 30);
+}
+
+.error{
+    background-color: red;
+}
