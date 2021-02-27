@@ -451,7 +451,8 @@ export const bookService = {
     removeReview,
     saveGoogleRes,
     getDemoData,
-    addBook
+    addBook,
+    setBookId
 }
 function saveReview(id, review) {
     return getBookById(id)
@@ -468,50 +469,33 @@ function removeReview(bookId, reviewIdx) {
         })
 
 }
+function setBookId(currId, diff) {
+    let books = utilService.loadFromStorage(BOOKS_KEY)
+    let currBookIdx = books.findIndex(book => {
+        return book.id === currId
+    })
+    let nextBookId = books[currBookIdx + diff].id
+    return nextBookId
+}
 
-
-// {
-//     "id": "OXeMG8wNskc",
-//     "title": "metus hendrerit",
-//     "subtitle": "mi est eros convallis auctor arcu dapibus himenaeos",
-//     "authors": [
-//         "Barbara Cartland"
-//     ],
-//     "publishedDate": 1999,
-//     "description": "placerat nisi sodales suscipit tellus tincidunt mauris elit sit luctus interdum ad dictum platea vehicula conubia fermentum habitasse congue suspendisse",
-//     "pageCount": 713,
-//     "categories": [
-//         "Computers",
-//         "Hack"
-//     ],
-//     "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
-//     "language": "en",
-//     "listPrice": {
-//         "amount": 109,
-//         "currencyCode": "EUR",
-//         "isOnSale": false
-//     }
-// }
 function addBook(book) {
     let books = utilService.loadFromStorage(BOOKS_KEY)
     book = {
-        id: book.id, title: book.volumeInfo.title,
-        subtitle: 'lorem ipsum dolor',
-        authors: book.volumeInfo.authors,
-        publishedDate: book.volumeInfo.publishedDate,
-        description: book.volumeInfo.description,
-        pageCount: book.volumeInfo.pageCount,
-        categories: book.volumeInfo.categories,
-        thumbnail: book.volumeInfo.imageLinks.thumbnail,
-        language: book.volumeInfo.language,
+        id: book.id, title: book.volumeInfo.title ? book.volumeInfo.title : 'Lorem ipsum dolor',
+        subtitle: book.volumeInfo.subtitle ? book.volumeInfo.subtitle : 'lorem ipsum dolor',
+        authors: book.volumeInfo.authors ? book.volumeInfo.authors : 'Yoni Bar',
+        publishedDate: book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : '1996',
+        description: book.volumeInfo.description ? book.volumeInfo.description : 'lorem ipsum dolor si amet',
+        pageCount: book.volumeInfo.pageCount ? book.volumeInfo.pageCount : 60,
+        categories: book.volumeInfo.categories ? book.volumeInfo.categories : 'Cartoon',
+        thumbnail: book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : 'img/default-book.png',
+        language: book.volumeInfo.language ? book.volumeInfo.language : 'en',
         listPrice: {
             amount: 80,
             currencyCode: 'EUR',
             isOnSale: true
         }
-
     }
-    // if (!book.imageLinks) book['imageLinks']['thumbnail'] = 'img/default-book.png'
     if (!books.find(currBook => { return currBook.id === book.id })) {
         console.log('Saving');
         books.push(book)

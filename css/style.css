@@ -29,7 +29,7 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .page-size{
-height: 80vh;
+height: 100vh;
 }
 
 
@@ -171,6 +171,12 @@ flex-basis: 50%;
 .review-content{
     margin-bottom: 10px;
 }
+.book-nav{
+    width: 100%;
+    flex-direction: row-reverse;
+    display: flex;
+    justify-content: space-around;
+}
 
 .back{
     text-decoration: none;
@@ -257,11 +263,18 @@ footer{
 
 /* USER MSG */
 .user-msg {
-    position: fixed;
-    padding: 20px;
-    top: 0;
-    right: 0;
-    z-index: 1;
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
 }
 
 .success{
@@ -271,3 +284,4 @@ footer{
 .error{
     background-color: red;
 }
+

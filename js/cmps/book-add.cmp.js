@@ -15,6 +15,7 @@ export default {
     },
     methods: {
         search() {
+            if (!this.searchStr) return
             this.$emit('searchBook', this.searchStr)
         }
     },

@@ -6,13 +6,19 @@ export default {
             <img src="img/about-hero.jpg" alt="">
         </div>
         <h2>About!</h2>
+        <nav>
+            <router-link to="/about/me">About Me</router-link> |
+            <router-link to="/about/shop">About My Shop</router-link>
+        </nav>
+        <router-view />
     </div>`,
     data() {
         return {
             interval: null
         }
     },
-    methods: {},
+    methods: {
+    },
     components: {},
     computed: {},
     created() {

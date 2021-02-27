@@ -6,6 +6,7 @@ export default {
     template: `
     <section v-if="book" class="book-details-container">
         <div class="details-content">
+            
             <h1>Title: {{book.title}}</h1>
             <p>Sub Title: {{book.subtitle}}</p>
             <h3>Author: {{displayAuthor}}</h3>
@@ -21,6 +22,10 @@ export default {
                 <review-add @saveReview="addReview"></review-add>
             </div>
             <router-link class="back" to="/book">Back</router-link>
+            <div class="book-nav">
+                <button @click="changeBook(1)">Next Book</button>
+                <button @click="changeBook(-1)">Prev Book</button>
+            </div>
         </div>
         <article class="reviews-container"> 
         <h2>Reviews!</h2>
@@ -40,10 +45,26 @@ export default {
         return {
             book: null,
             review: null,
+            nextBookId: 'OXeMG8wNskc',
+
 
         }
     },
     methods: {
+        loadBook() {
+            const id = this.$route.params.bookId
+            bookService.getBookById(id)
+                .then(book => {
+                    this.book = book
+                })
+        },
+        changeBook(diff) {
+            const { id } = this.book
+            let nextBookId = bookService.setBookId(id, diff)
+            this.$router.push('/book/' + nextBookId)
+
+        },
+
         addReview(review) {
             bookService.saveReview(this.book.id, review)
                 .then(book => this.book = book)
@@ -54,10 +75,7 @@ export default {
         }
     },
     created() {
-
-        const id = this.$route.params.bookId
-        bookService.getBookById(id)
-            .then(book => this.book = book)
+        this.loadBook()
 
         if (this.review) {
             const reviews = this.book.reviews
@@ -70,6 +88,9 @@ export default {
         }
     },
     computed: {
+        nextBookLink() {
+            return '/book/' + this.nextBookId
+        },
         displayBookPrice() {
             let currencyCode = this.book.listPrice.currencyCode
             if (currencyCode === 'EUR') return this.book.listPrice.amount + '€'
@@ -96,9 +117,11 @@ export default {
         reviewAdd
     },
     watch: {
-        '$route.params.id'(id) {
+        '$route.params.bookId'(id) {
             console.log(id)
-        }
+            this.loadBook()
+        },
+
     }
 
 }
